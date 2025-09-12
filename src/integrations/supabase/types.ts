@@ -14,7 +14,110 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      attempts: {
+        Row: {
+          answers: Json
+          aptitude_score: number
+          attempt_date: string
+          completed_at: string | null
+          employee_id: string
+          id: string
+          kra_score: number
+          product_score: number
+          total_score: number
+        }
+        Insert: {
+          answers?: Json
+          aptitude_score?: number
+          attempt_date?: string
+          completed_at?: string | null
+          employee_id: string
+          id?: string
+          kra_score?: number
+          product_score?: number
+          total_score?: number
+        }
+        Update: {
+          answers?: Json
+          aptitude_score?: number
+          attempt_date?: string
+          completed_at?: string | null
+          employee_id?: string
+          id?: string
+          kra_score?: number
+          product_score?: number
+          total_score?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attempts_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: false
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      employees: {
+        Row: {
+          can_attempt: boolean
+          created_at: string
+          id: string
+          password: string
+          username: string
+        }
+        Insert: {
+          can_attempt?: boolean
+          created_at?: string
+          id?: string
+          password: string
+          username: string
+        }
+        Update: {
+          can_attempt?: boolean
+          created_at?: string
+          id?: string
+          password?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      questions: {
+        Row: {
+          correct_option: string
+          created_at: string
+          id: string
+          option_a: string
+          option_b: string
+          option_c: string
+          option_d: string
+          question_text: string
+          section: string
+        }
+        Insert: {
+          correct_option: string
+          created_at?: string
+          id?: string
+          option_a: string
+          option_b: string
+          option_c: string
+          option_d: string
+          question_text: string
+          section: string
+        }
+        Update: {
+          correct_option?: string
+          created_at?: string
+          id?: string
+          option_a?: string
+          option_b?: string
+          option_c?: string
+          option_d?: string
+          question_text?: string
+          section?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
