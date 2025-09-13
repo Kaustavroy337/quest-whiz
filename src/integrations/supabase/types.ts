@@ -58,26 +58,61 @@ export type Database = {
           },
         ]
       }
+      employee_profiles: {
+        Row: {
+          created_at: string
+          employee_id: string
+          id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          employee_id: string
+          id?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          employee_id?: string
+          id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "employee_profiles_employee_id_fkey"
+            columns: ["employee_id"]
+            isOneToOne: true
+            referencedRelation: "employees"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       employees: {
         Row: {
+          berger_employee_code: string | null
           can_attempt: boolean
           created_at: string
           id: string
-          password: string
+          name: string | null
           username: string
         }
         Insert: {
+          berger_employee_code?: string | null
           can_attempt?: boolean
           created_at?: string
           id?: string
-          password: string
+          name?: string | null
           username: string
         }
         Update: {
+          berger_employee_code?: string | null
           can_attempt?: boolean
           created_at?: string
           id?: string
-          password?: string
+          name?: string | null
           username?: string
         }
         Relationships: []
@@ -123,7 +158,20 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_current_employee: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          berger_employee_code: string
+          can_attempt: boolean
+          id: string
+          name: string
+          username: string
+        }[]
+      }
+      link_employee_to_auth_user: {
+        Args: { p_auth_user_id: string; p_employee_username: string }
+        Returns: boolean
+      }
     }
     Enums: {
       [_ in never]: never
